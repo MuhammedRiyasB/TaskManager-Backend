@@ -7,25 +7,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="12.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+    <!-- JWT / Auth -->
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.11">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.1.0" />
+	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.1.0" />
+
+	  <!-- Entity Framework (MATCH MODULES EXACTLY) -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-	  <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="7.1.2" />
-	  <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.1.2" />
+
+    <!-- Validation -->
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
+
+    <!-- Swagger -->
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+
+    <!-- AutoMapper -->
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskManager.Modules.Tasks\TaskManager.Modules.Tasks.csproj" />
     <ProjectReference Include="..\TaskManager.Modules.Auth\TaskManager.Modules.Auth.csproj" />
+    <ProjectReference Include="..\TaskManager.Modules.Tasks\TaskManager.Modules.Tasks.csproj" />
     <ProjectReference Include="..\TaskManager.Shared\TaskManager.Shared.csproj" />
   </ItemGroup>
 
 </Project>
-
