@@ -72,8 +72,6 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateTaskRequestValidator>
 
 builder.Services.AddAuthModule(builder.Configuration);
 
-builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
 builder.Services.AddHttpContextAccessor();
 
 
