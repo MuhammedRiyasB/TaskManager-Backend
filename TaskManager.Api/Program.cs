@@ -18,6 +18,20 @@ using TaskManager.Modules.Tasks.Validator;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Fail Fast - Required Secrets
+var jwtKey = builder.Configuration["Jwt:Key"];
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(jwtKey))
+{
+    throw new Exception("JWT Key is missing. Set Jwt:Key via User Secrets or Environment Variables.");
+}
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new Exception("Database connection string is missing. Set ConnectionStrings:DefaultConnection.");
+}
+
 // -------------------- SERVICES --------------------
 
 builder.Services.AddControllers();
@@ -53,9 +67,6 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-
 builder.Services.AddDbContext<TasksDbContext>(options =>
     options.UseSqlServer(connectionString));
 
@@ -74,7 +85,7 @@ builder.Services.AddAuthModule(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
-
+//------------AUTHENTICATION-------------
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
@@ -91,6 +102,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     };
 });
 
+// -----------CORS----------------
 
 builder.Services.AddCors(options =>
 {
@@ -104,7 +116,7 @@ builder.Services.AddCors(options =>
 });
 
 
-// -------------------- APP --------------------
+// -------------------- APP PIPELINE--------------------
 
 var app = builder.Build();
 
@@ -121,6 +133,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
+// Set CurrentUserId for DbContext
 app.Use(async (context, next) =>
 {
     var db = context.RequestServices.GetRequiredService<TasksDbContext>();
