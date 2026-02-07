@@ -128,16 +128,15 @@ if (!string.IsNullOrWhiteSpace(port))
 }
 
 
-if (app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseCors("FrontendPolicy");
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
