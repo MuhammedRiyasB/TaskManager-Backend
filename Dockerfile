@@ -18,5 +18,5 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build /out .
 
-EXPOSE 8080
+EXPOSE 10000
 ENTRYPOINT ["dotnet", "TaskManager.Api.dll"]
