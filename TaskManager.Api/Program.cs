@@ -68,7 +68,13 @@ builder.Services.AddSwaggerGen(c =>
 
 
 builder.Services.AddDbContext<TasksDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseSqlServer(connectionString, sql =>
+        sql.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(10),
+            errorNumbersToAdd: null
+        )));
+
 
 
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
@@ -131,9 +137,11 @@ if (!string.IsNullOrWhiteSpace(port))
 }
 
 
-
+if (app.Environment.IsDevelopment())
+{
     app.UseSwagger();
     app.UseSwaggerUI();
+}
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
