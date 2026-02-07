@@ -29,7 +29,7 @@ public class AuthService : IAuthService
     public async Task<AuthResponse> RegisterAsync(RegisterRequest request)
     {
         if (await _userRepository.EmailExistsAsync(request.Email))
-            throw new ApplicationException("Email already registered");
+            throw new InvalidOperationException("Email already registered");
 
         var user = new User
         {
@@ -52,7 +52,7 @@ public class AuthService : IAuthService
         var user = await _userRepository.GetByEmailAsync(request.Email);
 
         if (user is null || !_passwordHasher.Verify(request.Password, user.PasswordHash))
-            throw new ApplicationException("Invalid email or password");
+            throw new InvalidOperationException("Invalid email or password");
 
         var token = _jwt.Generate(user);
         var response = _mapper.Map<AuthResponse>(user);
