@@ -12,8 +12,8 @@ using TaskManager.Modules.Tasks.Data;
 namespace TaskManager.Modules.Tasks.Migrations
 {
     [DbContext(typeof(TasksDbContext))]
-    [Migration("20260128232640_Add_UserId_FK_And_Index")]
-    partial class Add_UserId_FK_And_Index
+    [Migration("20260207182126_Init_Tasks_Clean")]
+    partial class Init_Tasks_Clean
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -56,7 +56,6 @@ namespace TaskManager.Modules.Tasks.Migrations
                         .HasColumnType("nvarchar(200)");
 
                     b.Property<int>("UserId")
-                        .HasMaxLength(450)
                         .HasColumnType("int");
 
                     b.HasKey("Id");

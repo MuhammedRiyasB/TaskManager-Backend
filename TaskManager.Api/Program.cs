@@ -75,7 +75,7 @@ builder.Services.AddScoped<ITaskRepository, TaskRepository>();
 
 builder.Services.AddScoped<ITaskService, TaskService>();
 
-builder.Services.AddAutoMapper(typeof(TaskProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddFluentValidationAutoValidation();
 
@@ -119,6 +119,9 @@ builder.Services.AddCors(options =>
 // -------------------- APP PIPELINE--------------------
 
 var app = builder.Build();
+
+var mapper = app.Services.GetRequiredService<AutoMapper.IMapper>();
+mapper.ConfigurationProvider.AssertConfigurationIsValid();
 
 var port = Environment.GetEnvironmentVariable("PORT");
 

@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace TaskManager.Modules.Tasks.Migrations
+namespace TaskManager.Modules.Auth.Migrations
 {
     /// <inheritdoc />
-    public partial class Fix_Task_UserId_Int : Migration
+    public partial class Init_Auth_Clean : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

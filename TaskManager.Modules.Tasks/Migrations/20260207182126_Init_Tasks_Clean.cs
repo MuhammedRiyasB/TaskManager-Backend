@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TaskManager.Modules.Tasks.Migrations
 {
     /// <inheritdoc />
-    public partial class Init_Tasks : Migration
+    public partial class Init_Tasks_Clean : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace TaskManager.Modules.Tasks.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Priority = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -29,6 +29,11 @@ namespace TaskManager.Modules.Tasks.Migrations
                 {
                     table.PrimaryKey("PK_Tasks", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Tasks_UserId",
+                table: "Tasks",
+                column: "UserId");
         }
 
         /// <inheritdoc />
