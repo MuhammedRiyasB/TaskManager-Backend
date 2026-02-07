@@ -114,7 +114,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("FrontendPolicy", policy =>
     {
-        policy.WithOrigins("https://task-manager-frontent.vercel.app/")
+        policy.WithOrigins("https://task-manager-frontent.vercel.app")
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials();
